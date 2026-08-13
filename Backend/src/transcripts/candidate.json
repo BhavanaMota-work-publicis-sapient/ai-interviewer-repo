@@ -1,0 +1,19 @@
+{
+  "candidate": {
+    "name": "John"
+  },
+  "role": "Senior React Developer",
+  "level": "Senior",
+  "experience": 6,
+  "techStack": [
+    "React",
+    "Redux",
+    "TypeScript"
+  ],
+  "questions": [
+    {
+      "question": "Hi Bana, it's great to meet you! Let's dive into the interview. To start off, can you explain the concept of state in React and how it differs from props?",
+      "answer": "Yeah, state is bounded to a component, whereas props comes from a parent component. State is state is mutable, whereas props is immutable. State is like a for component. , user interaction data."
+    }
+  ]
+}
