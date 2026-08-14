@@ -9,7 +9,15 @@ import tokenRoute from "./routes/token.js";
 
 const app: Application = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",           // Local development
+      process.env.FRONTEND_URL || ""          // Production frontend
+    ],
+    credentials: true
+  })
+);
 app.use(express.json());
 app.use(express.static("public"));
 
