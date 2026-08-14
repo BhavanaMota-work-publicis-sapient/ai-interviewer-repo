@@ -10,6 +10,7 @@ interface InterviewResult {
   report: Report;
   transcriptData: string;
 }
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   console.log("App rendered");
@@ -40,7 +41,7 @@ function App() {
 
   const getTranscript = async (id: string) => {
     const response = await fetch(
-      `http://localhost:5050/session-transcript/${id}`,
+      `${API_URL}/session-transcript/${id}`,
     );
 
     const data: InterviewResult = await response.json();
@@ -53,7 +54,7 @@ function App() {
     try {
       setStatus("Creating Session...");
 
-      const response = await fetch("http://localhost:5050/token", {
+      const response = await fetch(`${API_URL}/token`, {
         method: "POST",
       });
 

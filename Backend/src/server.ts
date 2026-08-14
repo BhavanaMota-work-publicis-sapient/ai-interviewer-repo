@@ -16,6 +16,11 @@ app.use(express.static("public"));
 app.use("/session-transcript", transcriptSession);
 app.use("/token", tokenRoute);
 
+app.get("/health", (req, res) => {
+  res.json({
+    status: "OK"
+  });
+});
 const PORT = process.env.PORT || 5050;
 
 app.listen(PORT, () => {
