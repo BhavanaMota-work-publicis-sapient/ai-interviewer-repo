@@ -12,7 +12,7 @@ export const createSession = async (): Promise<CreateSessionResponse> => {
     body: JSON.stringify({
       avatar_id: "dd73ea75-1218-4ef3-92ce-606d5f7fbc0a",
       mode: "FULL",
-      is_sandbox: false,
+      is_sandbox: true,
       video_settings: {
         quality: "high",
         encoding: "H264",
