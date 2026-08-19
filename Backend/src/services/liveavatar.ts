@@ -19,7 +19,7 @@ export const createSession = async (): Promise<CreateSessionResponse> => {
       },
       avatar_persona: {
         // 28a5ee53-3093-4774-8428-d9f85a3d9460
-        context_id: "28a5ee53-3093-4774-8428-d9f85a3d9460",
+        context_id: "3866b0dd-f72e-4af6-9612-058489479a9b",
         language: "en",
       },
     }),
