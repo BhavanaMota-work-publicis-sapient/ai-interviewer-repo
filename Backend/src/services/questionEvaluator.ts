@@ -24,9 +24,6 @@ async function evaluateQuestion({
   answer,
 }: EvaluateQuestionParams): Promise<unknown> {
   const prompt = buildQuestionEvaluatorPrompt({
-    role,
-    level,
-    rubric,
     question,
     answer,
   });
