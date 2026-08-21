@@ -4,7 +4,7 @@ import "./App.css";
 
 interface Report {
   overallScore: number;
-  recommendation: string;
+  overallFeedback: string;
 }
 interface InterviewResult {
   report: Report;
@@ -52,7 +52,8 @@ function App() {
 
   const startInterview = async () => {
     try {
-      setStatus("Creating Session...");
+      console.log(`Creating Session...${API_URL}/token`);
+      setStatus(`Creating Session...`);
 
       const response = await fetch(`${API_URL}/token`, {
         method: "POST",
@@ -155,7 +156,7 @@ function App() {
             <strong>Score:</strong> {result.overallScore}
           </p>
           <p>
-            <strong>Conclusion:</strong> {result.recommendation}
+            <strong>Conclusion:</strong> {result.overallFeedback}
           </p>
         </div>
       )}

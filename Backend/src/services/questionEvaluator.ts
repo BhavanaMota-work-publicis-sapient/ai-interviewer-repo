@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
-import  buildQuestionEvaluatorPrompt  from "../prompts/questionEvaluatorPrompt.js";
+import buildInterviewEvaluatorPrompt from "../prompts/interviewEvaluatorPrompt.js";
 
 dotenv.config();
 
@@ -8,29 +8,30 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY!,
 });
 
-interface EvaluateQuestionParams {
+interface EvaluateInterviewInput {
+  conversation: string;
+  candidateName: string;
   role: string;
-  level: string;
-  rubric: unknown;
-  question: string;
-  answer: string;
+  experience: string;
+  skills: string[];
 }
 
-async function evaluateQuestion({
+export default async function evaluateInterview({
+  conversation,
+  candidateName,
   role,
-  level,
-  rubric,
-  question,
-  answer,
-}: EvaluateQuestionParams): Promise<unknown> {
-  const prompt = buildQuestionEvaluatorPrompt({
-    question,
-    answer,
+  experience,
+  skills,
+}: EvaluateInterviewInput) {
+  const prompt = buildInterviewEvaluatorPrompt({
+    conversation,
+    candidateName,
+    role,
+    experience,
+    skills,
   });
 
-  console.log("Before Gemini");
-
-  try {
+ try {
     const responseAI = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
       contents: prompt,
@@ -51,5 +52,3 @@ async function evaluateQuestion({
     throw error;
   }
 }
-
-export default evaluateQuestion;
