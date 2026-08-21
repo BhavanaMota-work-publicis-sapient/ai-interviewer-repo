@@ -21,6 +21,7 @@ function App() {
   const [status, setStatus] = useState("Disconnected");
   const [result, setResult] = useState<Report | null>(null);
   const [transcriptData, setTranscriptData] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const registerEvents = (liveSession: LiveAvatarSession) => {
     liveSession.on("connected", () => {
@@ -40,9 +41,7 @@ function App() {
   };
 
   const getTranscript = async (id: string) => {
-    const response = await fetch(
-      `${API_URL}/session-transcript/${id}`,
-    );
+    const response = await fetch(`${API_URL}/session-transcript/${id}`);
 
     const data: InterviewResult = await response.json();
     setResult(data.report);
@@ -90,10 +89,13 @@ function App() {
     if (!session || !sessionId) return;
 
     try {
+      setLoading(true);
       const data = await getTranscript(sessionId);
       console.log("Interview Result:", data);
     } catch (error) {
       console.error("Error fetching transcript:", error);
+    } finally {
+      setLoading(false);
     }
 
     await session.stop();
@@ -148,17 +150,24 @@ function App() {
         </button>
       )}
 
-      {result && (
-        <div style={{ marginTop: 20 }}>
-          <hr />
-          <h2>Interview Result</h2>
-          <p>
-            <strong>Score:</strong> {result.overallScore}
-          </p>
-          <p>
-            <strong>Conclusion:</strong> {result.overallFeedback}
-          </p>
+      {loading ? (
+        <div className="loader-container">
+          <div className="loader"></div>
+          <p>Analyzing interview...</p>
         </div>
+      ) : (
+        result && (
+          <div style={{ marginTop: 20 }}>
+            <hr />
+            <h2>Interview Result</h2>
+            <p>
+              <strong>Score:</strong> {result.overallScore}
+            </p>
+            <p>
+              <strong>Conclusion:</strong> {result.overallFeedback}
+            </p>
+          </div>
+        )
       )}
     </div>
   );
